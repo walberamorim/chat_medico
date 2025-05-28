@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>ChatBot Médico</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="chat-container">
+        <div id="chat-box" class="chat-box"></div>
+        <div class="input-area">
+            <input type="text" id="user-input" placeholder="Digite sua mensagem..." autocomplete="off">
+            <button id="send-button" class="send-button" onclick="enviarMensagem()">enviar</button>
+            <button id="search-button" class="search-button" onclick="pesquisarArtigos()">🔍</button>            
+            <button id="toggle-theme" class="toggle-theme">🌙</button>
+        </div>
+    </div>
+
+    <script>
+        function exibirMensagem(mensagem, remetente) {
+            if (remetente === 'bot') {
+                mensagem = "🤖[Bot]:<br> " + mensagem;
+            } else {
+                mensagem = "👤[Usuário]: " + mensagem;
+            }
+
+            const chatBox = document.getElementById("chat-box");
+            const messageElement = document.createElement("div");
+            messageElement.className = remetente;
+            messageElement.innerHTML = mensagem;
+            chatBox.appendChild(messageElement);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function enviarMensagem() {
+            const userInput = document.getElementById("user-input");
+            const mensagem = userInput.value.trim();
+            if (mensagem === "" || mensagem === null) return;
+            exibirMensagem(mensagem, "user");
+            userInput.value = "";
+            fetch('/responder', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ pergunta: mensagem })
+            })
+            .then(resposta => resposta.json())
+            .then(conteudo => {
+                if (conteudo.resposta) {
+                    exibirMensagem(conteudo.resposta, "bot");
+                } else {
+                    exibirMensagem("Desculpe, não consegui entender.", "bot");
+                }
+            })
+        }
+
+        // Alternar tema claro/escuro
+        const toggleBtn = document.getElementById("toggle-theme");
+        toggleBtn.addEventListener("click", function() {
+            document.body.classList.toggle("dark-mode");
+            if(document.body.classList.contains("dark-mode")) {
+                toggleBtn.textContent = "☀️";
+            } else {
+                toggleBtn.textContent = "🌙";
+            }
+        });
+
+        // ...existing code...
+        document.getElementById("user-input").addEventListener("keydown", function(e) {
+            if (e.key === "Enter") enviarMensagem();
+        });
+    </script>
+</body>
+</html>

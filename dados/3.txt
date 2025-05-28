@@ -1,0 +1,3 @@
+Doença: Cistite;
+Sintomas: dor ao urinar, vontade frequente de urinar, dor pélvica, sangue na urina;
+Especialista: urologista;

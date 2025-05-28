@@ -1,0 +1,3 @@
+Doença: Gastrite;
+Sintomas: dor abdominal, queimação no estômago, náusea, sensação de estômago cheio;
+Especialista: gastroenterologista;

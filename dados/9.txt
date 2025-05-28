@@ -1,0 +1,3 @@
+Doença: Alergia alimentar;
+Sintomas: urticária, inchaço, dificuldade para respirar, dor abdominal;
+Especialista: alergologista;

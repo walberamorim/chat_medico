@@ -1,0 +1,3 @@
+Doença: Dermatite;
+Sintomas: vermelhidão, coceira, descamação da pele, lesões;
+Especialista: dermatologista;

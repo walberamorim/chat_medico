@@ -1,0 +1,3 @@
+Doença: Sinusite;
+Sintomas: dor facial, congestão nasal, secreção nasal espessa, dor de cabeça;
+Especialista: otorrinolaringologista;

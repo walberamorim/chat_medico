@@ -1,0 +1,3 @@
+Doença: Depressão;
+Sintomas: tristeza persistente, falta de interesse, alterações no sono, fadiga;
+Especialista: psiquiatra;

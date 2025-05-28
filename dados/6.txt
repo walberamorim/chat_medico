@@ -1,0 +1,3 @@
+Doença: Covid-19;
+Sintomas: febre, tosse seca, cansaço, perda de olfato, perda de paladar;
+Especialista: infectologista;

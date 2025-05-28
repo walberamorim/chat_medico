@@ -1,0 +1,3 @@
+Doença: Diabetes tipo 2;
+Sintomas: sede excessiva, vontade frequente de urinar, fadiga, visão turva;
+Especialista: endocrinologista;

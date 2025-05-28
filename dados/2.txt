@@ -1,0 +1,3 @@
+Doença: Anemia;
+Sintomas: fadiga, palidez, falta de ar, tontura;
+Especialista: hematologista;

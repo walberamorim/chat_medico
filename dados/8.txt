@@ -1,0 +1,3 @@
+Doença: Enxaqueca;
+Sintomas: dor de cabeça intensa, náusea, sensibilidade à luz, sensibilidade ao som;
+Especialista: neurologista;

@@ -1,0 +1,3 @@
+Doença: Asma;
+Sintomas: falta de ar, chiado no peito, tosse seca, aperto no peito;
+Especialista: pneumologista;

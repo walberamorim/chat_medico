@@ -1,0 +1,14 @@
+# talvez seja necessario executar: python -m spacy download en_core_web_sm
+chatterbot
+chatterbot_corpus
+requests
+setuptools
+wheel
+flask
+nltk
+
+#instalar também o pacote OCR para o idioma portugues: sudo apt install tesseract-ocr-por
+pytesseract
+pillow
+transformers
+torch

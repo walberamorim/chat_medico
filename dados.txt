@@ -1,0 +1,51 @@
+Doença: Gripe;
+Sintomas: febre, dor de cabeça, dores no corpo, coriza, tosse;
+Especialista: clínico geral;
+
+Doença: Diabetes tipo 2;
+Sintomas: sede excessiva, vontade frequente de urinar, fadiga, visão turva;
+Especialista: endocrinologista;
+
+Doença: Hipertensão;
+Sintomas: dor de cabeça, tontura, visão embaçada, falta de ar;
+Especialista: cardiologista;
+
+Doença: Asma;
+Sintomas: falta de ar, chiado no peito, tosse seca, aperto no peito;
+Especialista: pneumologista;
+
+Doença: Alergia alimentar;
+Sintomas: urticária, inchaço, dificuldade para respirar, dor abdominal;
+Especialista: alergologista;
+
+Doença: Enxaqueca;
+Sintomas: dor de cabeça intensa, náusea, sensibilidade à luz, sensibilidade ao som;
+Especialista: neurologista;
+
+Doença: Gastrite;
+Sintomas: dor abdominal, queimação no estômago, náusea, sensação de estômago cheio;
+Especialista: gastroenterologista;
+
+Doença: Covid-19;
+Sintomas: febre, tosse seca, cansaço, perda de olfato, perda de paladar;
+Especialista: infectologista;
+
+Doença: Depressão;
+Sintomas: tristeza persistente, falta de interesse, alterações no sono, fadiga;
+Especialista: psiquiatra;
+
+Doença: Dermatite;
+Sintomas: vermelhidão, coceira, descamação da pele, lesões;
+Especialista: dermatologista;
+
+Doença: Cistite;
+Sintomas: dor ao urinar, vontade frequente de urinar, dor pélvica, sangue na urina;
+Especialista: urologista;
+
+Doença: Anemia;
+Sintomas: fadiga, palidez, falta de ar, tontura;
+Especialista: hematologista;
+
+Doença: Sinusite;
+Sintomas: dor facial, congestão nasal, secreção nasal espessa, dor de cabeça;
+Especialista: otorrinolaringologista;

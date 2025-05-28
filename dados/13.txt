@@ -1,0 +1,3 @@
+Doença: Gripe;
+Sintomas: febre, dor de cabeça, dores no corpo, coriza, tosse;
+Especialista: clínico geral;

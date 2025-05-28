@@ -1,0 +1,3 @@
+Doença: Hipertensão;
+Sintomas: dor de cabeça, tontura, visão embaçada, falta de ar;
+Especialista: cardiologista;
