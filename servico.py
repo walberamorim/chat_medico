@@ -13,6 +13,9 @@ INFO = {
     'versao': '1.0',
 }
 
+# Quantidade minima de chaves aceitas para dar match com a doenca
+QUANTIDADE_MINIMA_CHAVES = 2
+
 @servico.get('/')
 def get_info():
     return Response(json.dumps(INFO), status=200, mimetype='application/json')
@@ -45,20 +48,32 @@ def pesquisar_por_sintomas():
     tokens = eliminar_frequencias_baixas(tokens)
     chaves = (tokens + [""] * 7)[:7]
 
-    # Pesquisa no banco de dados
+    # Pesquisa no banco de dados e conta matches
     doencas = get_doencas_bd(como_linhas=True)
-    especialistas = []
+    resultados = []
     for doenca in doencas:
-        chaves_doenca = [doenca['chave1'], doenca['chave2'], doenca['chave3'], doenca['chave4'], doenca['chave5'], doenca['chave6'], doenca['chave7']]
-        if any(chave in chaves_doenca for chave in chaves if chave):
-            especialistas.append({
+        chaves_doenca = [
+            doenca['chave1'], doenca['chave2'], doenca['chave3'],
+            doenca['chave4'], doenca['chave5'], doenca['chave6'], doenca['chave7']
+        ]
+        # Conta quantas chaves da pergunta estão nas chaves da doença
+        match_count = sum(1 for chave in chaves if chave and chave in chaves_doenca)
+        if match_count > QUANTIDADE_MINIMA_CHAVES:
+            resultados.append({
                 "id": doenca['id_doenca'],
                 "especialidade": doenca['especialista'],
-                "descricao": doenca['doenca']
+                "descricao": doenca['doenca'],
+                "match_count": match_count
             })
 
-    return Response(json.dumps({"resposta": especialistas}), status=200, mimetype='application/json')
+    # Ordena do maior para o menor número de matches
+    resultados.sort(key=lambda x: x['match_count'], reverse=True)
 
+    # Remove o campo match_count se não quiser mostrar ao usuário
+    for r in resultados:
+        r.pop('match_count', None)
+
+    return Response(json.dumps({"resposta": resultados}), status=200, mimetype='application/json')
 
 
 if __name__ == "__main__":

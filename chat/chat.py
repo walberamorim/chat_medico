@@ -47,7 +47,7 @@ def pesquisar_profissionais(pergunta):
     sucesso, resposta = acessar_robo(URL_ROBO_PESQUISAR_SINTOMAS, {"pergunta": pergunta})
     profissionais_selecionados = []
     if sucesso:
-        profissionais = resposta["profissionais"]
+        profissionais = resposta["resposta"]
         for prof in profissionais:
             profissionais_selecionados.append({
                 "id": prof["id"],
@@ -62,15 +62,21 @@ def index():
 
 @chat.post("/responder")
 def get_resposta():
-    resposta = ''
-
     conteudo = request.json
     pergunta = conteudo['pergunta']
 
-    resposta = perguntar_robo(pergunta)
+    profissionais = pesquisar_profissionais(pergunta)
+    if profissionais:
+        resposta_formatada = "Com base nos sintomas informados, você pode estar relacionado às seguintes doenças:<br><ul>"
+        for prof in profissionais:
+            resposta_formatada += f"<li><b>{prof['Descrição']}</b> — Especialista indicado: <b>{prof['Especialidade']}</b></li>"
+        resposta_formatada += "</ul>"
+    else:
+        resposta_formatada = "Desculpe, não consegui encontrar um especialista para esses sintomas. Tente talvez me descrever melhor os sintomas ou adicionar outros possíveis sintomas que esteja sentindo."
+
 
     return Response(
-        json.dumps({"resposta": resposta}),
+        json.dumps({"resposta": resposta_formatada}),
         status=200,
         mimetype='application/json'
     )

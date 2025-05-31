@@ -10,8 +10,7 @@
         <div id="chat-box" class="chat-box"></div>
         <div class="input-area">
             <input type="text" id="user-input" placeholder="Digite sua mensagem..." autocomplete="off">
-            <button id="send-button" class="send-button" onclick="enviarMensagem()">enviar</button>
-            <button id="search-button" class="search-button" onclick="pesquisarArtigos()">🔍</button>            
+            <button id="send-button" class="send-button" onclick="enviarMensagem()">enviar</button>        
             <button id="toggle-theme" class="toggle-theme">🌙</button>
         </div>
     </div>
@@ -31,14 +30,23 @@
             chatBox.appendChild(messageElement);
             chatBox.scrollTop = chatBox.scrollHeight;
         }
-
+        // Mensagem de saudação ao carregar a página
+        window.onload = function() {
+            document.body.classList.add("dark-mode");
+            const toggleBtn = document.getElementById("toggle-theme");
+            if(toggleBtn) toggleBtn.textContent = "☀️";
+            exibirMensagem(
+                "Olá! Eu sou o assistente virtual médico. Por favor, liste seus sintomas e eu irei sugerir possíveis doenças e o especialista ideal para o seu caso.",
+                "bot"
+            );
+        };
         function enviarMensagem() {
             const userInput = document.getElementById("user-input");
             const mensagem = userInput.value.trim();
             if (mensagem === "" || mensagem === null) return;
             exibirMensagem(mensagem, "user");
             userInput.value = "";
-            fetch('/sintomas', {
+            fetch('/responder', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
