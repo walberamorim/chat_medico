@@ -4,7 +4,7 @@ from processar_dados import get_doencas
 NOME_ROBO = "Robô Médico"
 BD_ROBO = "chat.sqlite3"
 CAMINHO_BD = "C:\\Users\\WAA-HP\\Documents\\posweb\\chat_medico"
-BD_ARTIGOS = f"{CAMINHO_BD}\\dados.sqlite3"
+BD_DADOS = f"{CAMINHO_BD}\\dados.sqlite3"
 
 CONFIANCA_MINIMA = 0.6
 
@@ -23,7 +23,7 @@ def inicializar():
     except Exception as e:
         print(f"Erro inicializando o robô: {NOME_ROBO}: {str(e)}")
 
-    return sucesso, robo, artigos
+    return sucesso, robo, doencas
 
 def executar(robo):
     while True:
@@ -50,7 +50,7 @@ def pesquisar_doencas_por_chaves(chaves, doencas):
     return encontrou, doencas_selecionadas        
 
 if __name__ == "__main__":
-    sucesso, robo, artigos = inicializar()
+    sucesso, robo, doencas = inicializar()
 
     if sucesso:
         executar(robo)

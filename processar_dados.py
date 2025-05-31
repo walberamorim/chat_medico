@@ -23,7 +23,7 @@ CLASSES_GRAMATICAIS_INDESEJADAS = [
 FREQUENCIA_MINIMA = 1
 PALAVRAS_CHAVE_POR_DADOS = 7
 
-def inicializar():
+def inicializar_palavras():
     palavras_de_parada = set(stopwords.words('portuguese'))
 
     classificacoes = {}
@@ -63,10 +63,11 @@ def extrair_sintomas(conteudo):
     return sintomas
 
 def extrair_especialidade(conteudo):
-    marcador_inicio, marcador_fim = "Especialista: ", ";"
-    marcador_inicio = conteudo.index(marcador_inicio) + len(marcador_inicio)
-    marcador_fim = conteudo.index(marcador_fim)
-    especialidade = conteudo[marcador_inicio:marcador_fim]
+    marcador_inicio = "Especialista:"
+    marcador_fim = ";"
+    inicio = conteudo.index(marcador_inicio) + len(marcador_inicio)
+    fim = conteudo.index(marcador_fim, inicio)
+    especialidade = conteudo[inicio:fim].strip()
     return especialidade
 
 def eliminar_palavras_de_parada(tokens, palavras_de_parada):
@@ -108,7 +109,7 @@ def iniciar_banco_doencas():
 
     conexao = sqlite3.connect(BD_DADOS)
     cursor = conexao.cursor()
-    cursor.execute("CREATE TABLE IF NOT EXISTS doenca (id INTEGER PRIMARY KEY AUTOINCREMENT, doenca TEXT, sintomas TEXT, especialista)")
+    cursor.execute("CREATE TABLE IF NOT EXISTS doenca (id INTEGER PRIMARY KEY AUTOINCREMENT, doenca TEXT, sintomas TEXT, especialista TEXT)")
     cursor.execute("CREATE TABLE IF NOT EXISTS chaves (id INTEGER PRIMARY KEY AUTOINCREMENT, id_doenca INTEGER, chave1 TEXT, chave2 TEXT, chave3 TEXT, chave4 TEXT, chave5 TEXT, chave6 TEXT, chave7 TEXT, FOREIGN KEY(id_doenca) REFERENCES doenca(id))")
     conexao.commit()
     conexao.close()
@@ -129,7 +130,6 @@ def gravar_doenca(id, doenca, chaves, sintomas, especialista):
 
 def get_doencas(como_linhas = False):
     conexao = sqlite3.connect(BD_DADOS)
-    print("como_linhas: ", como_linhas)
     if (como_linhas):
         conexao.row_factory = sqlite3.Row
     cursor = conexao.cursor()
@@ -147,9 +147,9 @@ def get_doencas(como_linhas = False):
     return doencas
 
 if __name__ == "__main__":
-    palavras_de_parada, classificacoes = inicializar()
+    palavras_de_parada, classificacoes = inicializar_palavras()
     iniciar_banco_doencas()
-    for contador in range(1, 20):
+    for contador in range(1, 200):
         caminho_doenca = f"{CAMINHO_DADOS}\\{contador}.txt"
         if os.path.exists(caminho_doenca):
             sucesso, conteudo = ler_conteudo(caminho_doenca)
@@ -160,6 +160,7 @@ if __name__ == "__main__":
                 sintomas = extrair_sintomas(conteudo)
                 print(f"sintomas: {sintomas}")
                 especialidade = extrair_especialidade(conteudo)
+                print(f"especialidade: {especialidade}")
                 tokens = word_tokenize(sintomas, language='portuguese')
                 tokens = eliminar_palavras_de_parada(tokens, palavras_de_parada)
                 tokens = eliminar_pontuacao(tokens)

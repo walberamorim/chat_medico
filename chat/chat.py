@@ -6,7 +6,7 @@ import secrets
 
 URL_ROBO = "http://localhost:5000"
 URL_ROBO_ALIVE = f"{URL_ROBO}/alive"
-URL_ROBO_RESPONDER = f"{URL_ROBO}/responder"
+URL_ROBO_RESPONDER = f"{URL_ROBO}/sintomas"
 URL_ROBO_PESQUISAR_SINTOMAS = f"{URL_ROBO}/sintomas"
 
 CONFIANCA_MINIMA = 0.7
@@ -43,18 +43,17 @@ def perguntar_robo(pergunta):
         mensagem = resposta["resposta"]
     return sucesso, mensagem
 
-def pesquisar_profissionais(chaves):
+def pesquisar_profissionais(pergunta):
+    sucesso, resposta = acessar_robo(URL_ROBO_PESQUISAR_SINTOMAS, {"pergunta": pergunta})
     profissionais_selecionados = []
-
-    sucesso, resposta = acessar_robo(URL_ROBO_PESQUISAR_SINTOMAS, {"chave1": chaves[0], "chave2": chaves[1], "chave3": chaves[2], "chave4": chaves[3], "chave5": chaves[4], "chave6": chaves[5], "chave7": chaves[6]})
     if sucesso:
         profissionais = resposta["profissionais"]
-        if profissionais:
-            ordem = 1
-            for prof in profissionais:
-                profissionais_selecionados.append({"id": prof["id"], "Especialidade": f"{prof["especialidade"]}" , "Descrição": prof["descricao"]})
-                ordem += 1
-    
+        for prof in profissionais:
+            profissionais_selecionados.append({
+                "id": prof["id"],
+                "Especialidade": prof["especialidade"],
+                "Descrição": prof["descricao"]
+            })
     return profissionais_selecionados
 
 @chat.get("/")
